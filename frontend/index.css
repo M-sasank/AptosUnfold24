@@ -73,5 +73,14 @@
   }
   body {
     @apply bg-background text-foreground;
+    font-family: "Pixelify Sans", sans-serif !important;
+
   }
 }
+
+
+body{
+  font-family: "Pixelify Sans", sans-serif !important;
+  font-optical-sizing: auto;
+  font-style: normal;
+} 

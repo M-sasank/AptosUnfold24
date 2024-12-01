@@ -43,7 +43,7 @@ export default function GameScreen() {
               className="object-cover bg-white"
             />
             <div className="absolute bottom-0 left-0 right-0 bg-black/50 p-1">
-              <span className="text-sm pixel-font text-white">Target</span>
+              <span className="text-sm pixel-font text-white" style={{ fontFamily: "Pixelify Sans" }}>Target</span>
             </div>
           </div>
           
