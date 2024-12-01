@@ -19,7 +19,7 @@ export default function MainGame() {
 
         // Secondary camera for 2D view
         const secondaryCamera = new THREE.OrthographicCamera(-3, 3, 2, -2, 1, 1000);
-        secondaryCamera.position.set(0, 0, 5);
+        secondaryCamera.position.set(0, 0, 0);
         secondaryCamera.lookAt(4, 2, 0); // Looking at the wall
         
         // Main renderer setup
@@ -116,7 +116,7 @@ export default function MainGame() {
         scene.add(lens);
 
         // Vertical screen wall
-        const wallGeometry = new THREE.PlaneGeometry(6, 4);
+        const wallGeometry = new THREE.PlaneGeometry(6, 5);
         const wallMaterial = new THREE.MeshStandardMaterial({ 
             color: 0xffffff,
             side: THREE.DoubleSide,
