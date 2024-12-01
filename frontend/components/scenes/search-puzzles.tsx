@@ -3,7 +3,7 @@
 import { Button } from "@/components/ui/button"
 // import { input } from "@/components/ui/input"
 import { useState } from 'react'
-import { Search, ChevronLeft, ChevronRight } from 'lucide-react'
+import { Search, ChevronLeft, ChevronRight, ArrowLeft } from 'lucide-react'
 // import img from 'next/img'
 
 interface Puzzle {
@@ -11,6 +11,11 @@ interface Puzzle {
   title: string
   description: string
   img: string
+}
+
+interface SearchPuzzlesProps {
+  onBack: () => void
+  onSelectGame: (puzzleId: number) => void
 }
 
 const trendingPuzzles: Puzzle[] = [
@@ -67,7 +72,7 @@ const newPuzzles: Puzzle[] = [
   }
 ]
 
-export default function SearchPuzzles() {
+export default function SearchPuzzles({ onBack, onSelectGame }: SearchPuzzlesProps) {
   const [currentSlide, setCurrentSlide] = useState(0)
   const slidesPerView = 3
   const maxSlide = Math.ceil(trendingPuzzles.length / slidesPerView) - 1
@@ -88,6 +93,15 @@ export default function SearchPuzzles() {
   return (
     <div className="min-h-screen bg-sky-300 bg-[linear-gradient(45deg,rgba(255,255,255,0.1)_25%,transparent_25%,transparent_50%,rgba(255,255,255,0.1)_50%,rgba(255,255,255,0.1)_75%,transparent_75%,transparent)] bg-[length:24px_24px] p-4">
       <div className="max-w-4xl mx-auto space-y-8">
+        {/* Back Button */}
+        <Button
+          onClick={onBack}
+          variant="ghost" 
+          className="absolute top-4 left-4"
+        >
+          <ArrowLeft className="w-6 h-6" />
+        </Button>
+
         {/* Search Bar */}
         <div className="relative">
           <input 
@@ -104,16 +118,16 @@ export default function SearchPuzzles() {
           <div className="relative">
             <div className="flex gap-4 transition-transform duration-300" style={{transform: `translateX(-${currentSlide * 100}%)`}}>
               {visiblePuzzles.map((puzzle) => (
-                <div key={puzzle.id} className="w-1/3 flex-shrink-0">
-                  <div className="bg-white/90 backdrop-blur-sm border-4 border-black rounded-lg overflow-hidden relative aspect-square">
+                <div key={puzzle.id} className="w-1/3 flex-shrink-0" onClick={() => onSelectGame(puzzle.id)}>
+                  <div className="bg-white/90 backdrop-blur-sm border-4 border-black rounded-lg overflow-hidden relative aspect-square cursor-pointer hover:opacity-80 transition-opacity">
                     <img 
                       src={puzzle.img}
                       alt={puzzle.title}
                       className="w-full h-full object-cover"
                     />
                     <div className="absolute bottom-0 left-0 right-0 bg-black/70 p-3">
-                      <h3 className="pixel-font text-lg font-bold text-white">{puzzle.title}</h3>
-                      <p className="pixel-font text-sm text-white/80">{puzzle.description}</p>
+                      {/* <h3 className="pixel-font text-lg font-bold text-white">{puzzle.title}</h3> */}
+                      {/* <p className="pixel-font text-sm text-white/80">{puzzle.description}</p> */}
                     </div>
                   </div>
                 </div>
@@ -139,11 +153,12 @@ export default function SearchPuzzles() {
         {/* New Puzzles Section */}
         <div className="space-y-4">
           <h2 className="text-2xl font-bold pixel-font">New</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {newPuzzles.map((puzzle) => (
               <div 
                 key={puzzle.id}
-                className="bg-white/90 backdrop-blur-sm border-4 border-black rounded-lg overflow-hidden relative aspect-square"
+                onClick={() => onSelectGame(puzzle.id)}
+                className="bg-white/90 backdrop-blur-sm border-4 border-black rounded-lg overflow-hidden relative aspect-square cursor-pointer hover:opacity-80 transition-opacity"
               >
                 <img 
                   src={puzzle.img}
@@ -151,8 +166,8 @@ export default function SearchPuzzles() {
                   className="w-full h-full object-cover"
                 />
                 <div className="absolute bottom-0 left-0 right-0 bg-black/70 p-3">
-                  <h3 className="pixel-font text-lg font-bold text-white">{puzzle.title}</h3>
-                  <p className="pixel-font text-sm text-white/80">{puzzle.description}</p>
+                  {/* <p className="pixel-font text-lg font-bold text-white">{puzzle.title}</p> */}
+                  <p className="pixel-font text-sm text-white/80">{puzzle.title}</p>
                 </div>
               </div>
             ))}

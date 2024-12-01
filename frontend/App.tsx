@@ -18,25 +18,34 @@ import MainGame from './components/scenes/maingame';
 
 const OKTO_CLIENT_API_KEY = "ca8e29aa-a141-42ea-b28a-b18a08165f05";
 function App() {
-  const [currentPage, setCurrentPage] = useState('searchpuzzles');
+  const [currentPage, setCurrentPage] = useState('start');
+  const [Id,setPuzzleId]=useState(null);
 
   const renderPage = () => {
     switch(currentPage) {
       case 'createdpuzzles':
         return <CreatedPuzzles />
       case 'searchpuzzles':
-        return <SearchPuzzles />
+        return <SearchPuzzles 
+          onBack={() => setCurrentPage('start')}
+          onSelectGame={(puzzleId) => {
+            setPuzzleId(Id => puzzleId)
+            setCurrentPage('game');
+            // You can pass the selected puzzleId to GameScreen here if needed
+          }}
+        />
       case 'tutorial':
         return <TutorialSlide/>
       case 'start':
         return <StartPage 
-          onStart={() => setCurrentPage('game')}
+          onStart={() => setCurrentPage('searchpuzzles')}
           onLeaderboard={() => setCurrentPage('leaderboard')} 
         />;
       case 'game':
         return <GameScreen 
           onComplete={() => setCurrentPage('result')}
           onBack={() => setCurrentPage('start')}
+          id={Id}
         />;
       case 'result':
         return <ResultPage 
@@ -66,7 +75,7 @@ function App() {
      <OktoProvider apiKey={OKTO_CLIENT_API_KEY} buildType={BuildType.SANDBOX}>
        <Routes>
          <Route path="/" element={<LoginPage setAuthToken={setAuthToken} authToken={authToken} handleLogout={handleLogout}/>} />
-         <Route path="/home" element={authToken ? renderPage() : <Navigate to="/" />} />
+         <Route path="/home" element={!authToken ? renderPage() : <Navigate to="/" />} />
          {/* <Route path="/raw" element={authToken ? <RawTxnPage authToken={authToken} handleLogout={handleLogout}/> : <Navigate to="/" />} />
          <Route path="/widget" element={authToken ? <WidgetPage authToken={authToken} handleLogout={handleLogout}/> : <Navigate to="/" />} />        */}
        </Routes>
