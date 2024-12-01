@@ -12,18 +12,34 @@ export default function MainGame() {
         const scene = new THREE.Scene();
         scene.background = new THREE.Color("#fed4b8");
         
-        // Camera setup - positioned for top-down view
+        // Main camera setup
         const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
         camera.position.set(0, 10, 5);
         camera.lookAt(0, 0, 0);
+
+        // Secondary camera for 2D view
+        const secondaryCamera = new THREE.OrthographicCamera(-3, 3, 2, -2, 1, 1000);
+        secondaryCamera.position.set(0, 0, 5);
+        secondaryCamera.lookAt(4, 2, 0); // Looking at the wall
         
-        // Renderer setup
+        // Main renderer setup
         const renderer = new THREE.WebGLRenderer({ antialias: true });
         renderer.setSize(window.innerWidth, window.innerHeight);
         renderer.shadowMap.enabled = true;
-        renderer.shadowMap.type = THREE.PCFSoftShadowMap; // Softer shadows
-        renderer.outputEncoding = THREE.sRGBEncoding; // Better color accuracy
+        renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+        renderer.outputEncoding = THREE.sRGBEncoding;
         document.body.appendChild(renderer.domElement);
+
+        // Secondary renderer for 2D view
+        const secondaryRenderer = new THREE.WebGLRenderer({ antialias: true });
+        secondaryRenderer.setSize(200, 150); // Small viewport size
+        secondaryRenderer.shadowMap.enabled = true;
+        secondaryRenderer.shadowMap.type = THREE.PCFSoftShadowMap;
+        secondaryRenderer.domElement.style.position = 'absolute';
+        secondaryRenderer.domElement.style.top = '20px';
+        secondaryRenderer.domElement.style.left = '20px';
+        secondaryRenderer.domElement.style.border = '2px solid white';
+        document.body.appendChild(secondaryRenderer.domElement);
         
         // Cube
         const geometry = new THREE.BoxGeometry(1, 1, 1);
@@ -183,7 +199,9 @@ export default function MainGame() {
             camera.position.z = distance * Math.cos(angle);
             camera.lookAt(0, 0, 0);
             
+            // Render both views
             renderer.render(scene, camera);
+            secondaryRenderer.render(scene, secondaryCamera);
         };
         animate();
         
@@ -199,6 +217,7 @@ export default function MainGame() {
         return () => {
             window.removeEventListener('resize', handleResize);
             document.body.removeChild(renderer.domElement);
+            document.body.removeChild(secondaryRenderer.domElement);
             document.body.removeChild(rotationSlider);
             document.body.removeChild(zoomSlider);
         };
