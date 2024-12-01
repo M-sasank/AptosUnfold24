@@ -114,7 +114,7 @@ export default function MainGame() {
         scene.add(wall);
         
         // Main scene light
-        const mainLight = new THREE.DirectionalLight(0xffffff, 1.2);
+        const mainLight = new THREE.DirectionalLight(0xffffff, 3);
         mainLight.position.set(5, 5, 5);
         mainLight.castShadow = true;
         mainLight.shadow.mapSize.width = 2048;
@@ -124,8 +124,8 @@ export default function MainGame() {
         scene.add(mainLight);
 
         // Powerful spotlight for shadows
-        const powerSpot = new THREE.SpotLight(0xffffff, 2.5);
-        powerSpot.position.set(-2, 4, -2);
+        const powerSpot = new THREE.SpotLight(0xffffff, 19.5);
+        powerSpot.position.set(-8, 0, -4);
         powerSpot.target.position.set(4, 2, 0);
         powerSpot.angle = Math.PI / 4;
         powerSpot.penumbra = 0.2;
