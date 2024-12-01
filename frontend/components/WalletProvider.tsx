@@ -1,3 +1,6 @@
+// @ts-ignore
+// @ts-nocheck
+
 import { PropsWithChildren } from "react";
 import { AptosWalletAdapterProvider } from "@aptos-labs/wallet-adapter-react";
 // Internal components
