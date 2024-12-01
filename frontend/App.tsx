@@ -2,7 +2,9 @@
 // @ts-nocheck
 
 import { IS_DEV } from "./constants";
+import { AptosWalletAdapterProvider } from "@aptos-labs/wallet-adapter-react";
 import TutorialSlide from "./components/scenes/tutorial";
+import MysteryBox from './MysteryBox';
 import StartPage from "./components/scenes/startpage";
 import GameScreen from "./components/scenes/gamescene";
 import ResultPage from "./components/scenes/resultpage";
@@ -14,7 +16,7 @@ import { OktoProvider, BuildType } from 'okto-sdk-react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import LoginPage from './components/LoginPage';
 import MainGame from './components/scenes/maingame';
-
+import WalletConnectDemo from './components/connect'
 
 const OKTO_CLIENT_API_KEY = "ca8e29aa-a141-42ea-b28a-b18a08165f05";
 function App() {
@@ -62,16 +64,30 @@ function App() {
     setAuthToken(null); // Clear the authToken
   };
  return (
-   <Router>
+      <Router>
+      <AptosWalletAdapterProvider
+          // plugins={wallets}
+          autoConnect={true}
+          optInWallets={["Petra"]}
+          // dappConfig={{ Network: Network.TESTNET }}
+          onError={(error) => {
+            console.log("error", error);
+          }}
+        >
      <OktoProvider apiKey={OKTO_CLIENT_API_KEY} buildType={BuildType.SANDBOX}>
        <Routes>
-         <Route path="/" element={<LoginPage setAuthToken={setAuthToken} authToken={authToken} handleLogout={handleLogout}/>} />
+       <Route>
+       {/* <Route path="/" element={<WalletConnectDemo/>} /> */}
+       <Route path="/" element={<LoginPage setAuthToken={setAuthToken} authToken={authToken} handleLogout={handleLogout}/>} />
+       </Route>
          <Route path="/home" element={authToken ? renderPage() : <Navigate to="/" />} />
          {/* <Route path="/raw" element={authToken ? <RawTxnPage authToken={authToken} handleLogout={handleLogout}/> : <Navigate to="/" />} />
          <Route path="/widget" element={authToken ? <WidgetPage authToken={authToken} handleLogout={handleLogout}/> : <Navigate to="/" />} />        */}
        </Routes>
      </OktoProvider>
+     </AptosWalletAdapterProvider>
    </Router>
+   
  );
 }
 export default App;

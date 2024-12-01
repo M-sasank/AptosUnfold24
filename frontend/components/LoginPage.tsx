@@ -1,7 +1,9 @@
 // @ts-ignore
 // @ts-nocheck
 
+
 import React, { useState, useEffect } from "react";
+import { WalletSelector } from "@aptos-labs/wallet-adapter-ant-design";
 import { useNavigate } from "react-router-dom";
 import { useOkto } from "okto-sdk-react";
 import { GoogleLogin,GoogleOAuthProvider } from "@react-oauth/google";
@@ -81,6 +83,7 @@ function LoginPage() {
   return (
     <div style={containerStyle}>
       <h1>Login</h1>
+      <WalletSelector />
       <GoogleOAuthProvider clientId="475743858090-1r6ujngrh35hdk29ehlmvjpu94stim4d.apps.googleusercontent.com">
       {!authToken ? (
           <GoogleLogin
