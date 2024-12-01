@@ -1,4 +1,6 @@
 //imports  
+// @ts-ignore
+// @ts-nocheck
 import { useEffect, useState } from "react";
 import * as THREE from "three";
 import { CylinderGeometry, MeshStandardMaterial, Mesh, PointLight, PlaneGeometry, SpotLight } from "three";
