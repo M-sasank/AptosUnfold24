@@ -2,6 +2,7 @@
 .aptos
 .env
 contract/build
+okto-sdk-react-template-app
 
 # Logs
 logs

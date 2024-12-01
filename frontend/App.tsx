@@ -1,10 +1,7 @@
-import { useState } from 'react';
-import { Header } from "@/components/Header";
-import { Counter } from "@/components/Counter";
-import { TopBanner } from "@/components/TopBanner";
+// @ts-ignore
+// @ts-nocheck
 
 import { IS_DEV } from "./constants";
-import MainGame from "./components/scenes/maingame";
 import TutorialSlide from "./components/scenes/tutorial";
 import StartPage from "./components/scenes/startpage";
 import GameScreen from "./components/scenes/gamescene";
@@ -12,25 +9,14 @@ import ResultPage from "./components/scenes/resultpage";
 import Leaderboard from "./components/scenes/leaderboard";
 import CreatedPuzzles from './components/scenes/createdpuzzles';
 import SearchPuzzles from './components/scenes/search-puzzles';
+import React, { useState } from 'react';
+import { OktoProvider, BuildType } from 'okto-sdk-react';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import LoginPage from './components/LoginPage';
+import MainGame from './components/scenes/maingame';
 
-interface StartPageProps {
-  onStart: () => void;
-}
 
-interface GameScreenProps {
-  onComplete: () => void; 
-}
-
-interface ResultPageProps {
-  onPost: () => void;
-  onNewPuzzle: () => void;
-  onCancel: () => void;
-}
-
-interface LeaderboardProps {
-  onHome: () => void;
-}
-
+const OKTO_CLIENT_API_KEY = "ca8e29aa-a141-42ea-b28a-b18a08165f05";
 function App() {
   const [currentPage, setCurrentPage] = useState('searchpuzzles');
 
@@ -68,19 +54,24 @@ function App() {
           onLeaderboard={() => setCurrentPage('leaderboard')}
         />;
     }
+  }
+ console.log('App component rendered');
+ const [authToken, setAuthToken] = useState(null);
+ const handleLogout = () => {
+    console.log("setting auth token to null")
+    setAuthToken(null); // Clear the authToken
   };
-
-  return (
-    <>
-      {/* {IS_DEV && <TopBanner />}
-      <Header />
-      <div className="flex items-center justify-center flex-col">
-        <Counter />
-      </div> */}
-      {/* <MainGame /> */}
-      {renderPage()}
-    </>
-  );
+ return (
+   <Router>
+     <OktoProvider apiKey={OKTO_CLIENT_API_KEY} buildType={BuildType.SANDBOX}>
+       <Routes>
+         <Route path="/" element={<LoginPage setAuthToken={setAuthToken} authToken={authToken} handleLogout={handleLogout}/>} />
+         <Route path="/home" element={authToken ? renderPage() : <Navigate to="/" />} />
+         {/* <Route path="/raw" element={authToken ? <RawTxnPage authToken={authToken} handleLogout={handleLogout}/> : <Navigate to="/" />} />
+         <Route path="/widget" element={authToken ? <WidgetPage authToken={authToken} handleLogout={handleLogout}/> : <Navigate to="/" />} />        */}
+       </Routes>
+     </OktoProvider>
+   </Router>
+ );
 }
-
 export default App;
