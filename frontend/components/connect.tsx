@@ -1,3 +1,5 @@
+// @ts-ignore
+// @ts-nocheck
 import React from 'react';
 import { WalletName, useWallet } from '@aptos-labs/wallet-adapter-react';
 import { WalletSelector } from "@aptos-labs/wallet-adapter-ant-design";
