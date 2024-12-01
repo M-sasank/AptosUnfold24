@@ -10,6 +10,8 @@ import GameScreen from "./components/scenes/gamescene";
 import ResultPage from "./components/scenes/resultpage";
 import Leaderboard from "./components/scenes/leaderboard";
 import CreatedPuzzles from './components/scenes/createdpuzzles';
+const wallets = ["Mizu Wallet"];
+import { NETWORK, APTOS_API_KEY } from "@/constants";
 import SearchPuzzles from './components/scenes/search-puzzles';
 import React, { useState } from 'react';
 import { OktoProvider, BuildType } from 'okto-sdk-react';
@@ -75,15 +77,27 @@ function App() {
  return (
       <Router>
       <AptosWalletAdapterProvider
-          // plugins={wallets}
-          autoConnect={true}
-          optInWallets={["Petra"]}
-          // dappConfig={{ Network: Network.TESTNET }}
-          onError={(error) => {
-            console.log("error", error);
-          }}
-        >
-     <OktoProvider apiKey={OKTO_CLIENT_API_KEY} buildType={BuildType.SANDBOX}>
+      autoConnect={true}
+      dappConfig={{
+        network: NETWORK,
+        mizuwallet: {
+          // Learn more https://docs.mizu.io/docs/preparation/mizu-app-id
+          appId: undefined,
+          // Learn more https://docs.mizu.io/docs/preparation/manifest-json
+          manifestURL: "https://assets.mz.xyz/static/config/mizuwallet-connect-manifest.json",
+          aptosApiKey: APTOS_API_KEY,
+        },
+      }}
+      optInWallets={["Mizu Wallet"]}
+      onError={(error) => {
+        toast({
+          variant: "destructive",
+          title: "Error",
+          description: error || "Unknown wallet error",
+        });
+      }}
+    >
+      <OktoProvider apiKey={OKTO_CLIENT_API_KEY} buildType={BuildType.SANDBOX}>
        <Routes>
          <Route path="/" element={<LoginPage setAuthToken={setAuthToken} authToken={authToken} handleLogout={handleLogout}/>} />
          <Route path="/home" element={!authToken ? renderPage() : <Navigate to="/" />} />
@@ -91,7 +105,7 @@ function App() {
          <Route path="/widget" element={authToken ? <WidgetPage authToken={authToken} handleLogout={handleLogout}/> : <Navigate to="/" />} />        */}
        </Routes>
      </OktoProvider>
-     </AptosWalletAdapterProvider>
+    </AptosWalletAdapterProvider>
    </Router>
    
  );
