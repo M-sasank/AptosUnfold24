@@ -4,10 +4,10 @@ import { Button } from "@/components/ui/button"
 import { Progress } from "@/components/ui/progress"
 import { Pencil } from 'lucide-react'
 
-export default function PixelaryMenu() {
+export default function PixelaryMenu({ onStart }: { onStart: () => void }) {
   // Click handlers
   const handleDraw = () => {
-    console.log("Draw button clicked")
+    onStart()
   }
 
   const handleMyDrawings = () => {
@@ -90,4 +90,3 @@ export default function PixelaryMenu() {
     </div>
   )
 }
-
