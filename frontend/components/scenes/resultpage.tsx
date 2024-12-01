@@ -4,9 +4,17 @@ import { Button } from "@/components/ui/button"
 import { Clock, Sparkles } from 'lucide-react'
 // import img from 'next/img'
 
-export default function ResultPage() {
+export default function ResultPage({ onNewPuzzle, onCancel }: { onNewPuzzle: () => void, onCancel: () => void }) {
   const completionTime = 35
   const completionPercentage = 85
+
+  const handlePost = () => {
+    // Create Twitter intent
+    const tweetText = "Hi";
+const twitterUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(tweetText)}`;
+console.log(twitterUrl);
+    window.open(twitterUrl, '_blank')
+  }
 
   return (
     <div className="min-h-screen bg-sky-300 bg-[linear-gradient(45deg,rgba(255,255,255,0.1)_25%,transparent_25%,transparent_50%,rgba(255,255,255,0.1)_50%,rgba(255,255,255,0.1)_75%,transparent_75%,transparent)] bg-[length:24px_24px] p-4">
@@ -46,11 +54,13 @@ export default function ResultPage() {
             <Button 
               variant="outline" 
               className="pixel-font border-2 border-black px-8"
+              onClick={onCancel}
             >
               CANCEL
             </Button>
             <Button 
               className="pixel-font bg-black hover:bg-gray-800 px-8"
+              onClick={handlePost}
             >
               POST
             </Button>
@@ -59,6 +69,7 @@ export default function ResultPage() {
           {/* New Puzzle Button */}
           <Button 
             className="w-full pixel-font bg-black hover:bg-gray-800 py-6 text-lg flex items-center gap-2"
+            onClick={onNewPuzzle}
           >
             <Sparkles className="w-5 h-5" />
             DRAW NEW PUZZLE
@@ -76,4 +87,3 @@ export default function ResultPage() {
     </div>
   )
 }
-

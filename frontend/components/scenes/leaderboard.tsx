@@ -12,7 +12,7 @@ interface LeaderboardEntry {
   completionPercentage: number
 }
 
-export default function Leaderboard() {
+export default function Leaderboard({ onHome, onPlay }: { onHome: () => void, onPlay: () => void }) {
   const [currentPage, setCurrentPage] = useState(1)
   const entriesPerPage = 5
   
@@ -115,15 +115,17 @@ export default function Leaderboard() {
           <Button 
             variant="outline"
             className="w-32 pixel-font border-2 border-black flex items-center gap-2"
+            onClick={onHome}
           >
             <Home className="w-4 h-4" />
             HOME
           </Button>
           <Button 
             className="w-32 pixel-font bg-black hover:bg-gray-800 flex items-center gap-2"
+            onClick={onPlay}
           >
             <Share2 className="w-4 h-4" />
-            SHARE
+            TRY AGAIN
           </Button>
         </div>
       </div>
@@ -138,4 +140,3 @@ export default function Leaderboard() {
     </div>
   )
 }
-
