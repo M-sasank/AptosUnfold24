@@ -36,6 +36,7 @@ const OKTO_CLIENT_API_KEY = "ca8e29aa-a141-42ea-b28a-b18a08165f05";
 function App() {
   const aptos = new Aptos();
   const [games, setGames] = useState([]);
+  const [wallet_id,setWalletID] = useState("")
   // const { account } = useWallet();
   const [currentPage, setCurrentPage] = useState('start');
   const [Id,setPuzzleId]=useState(null);
@@ -92,7 +93,6 @@ function App() {
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  const [success, setSuccess] = useState(null);
   const { account, signAndSubmitTransaction } = useWallet();
   
   const [accountHasList, setAccountHasList] = useState<boolean>(false);
@@ -102,6 +102,7 @@ function App() {
     if (!account) return [];
     // change this to be your module account address
     // const moduleAddress = "=";
+    setWalletID(account.address)
     try {
       const todoListResource = await aptos.getAccountResource(
         {
@@ -109,7 +110,7 @@ function App() {
           resourceType:`${moduleAddress}::dreamscribe4::GlobalGames`
         }
       );
-      
+      setGames(todoListResource.games)
       console.log(todoListResource)
       setAccountHasList(true);
     } catch (e: any) {
@@ -150,6 +151,10 @@ function App() {
  return (
   
       <Router>
+        <div>
+          Wallet Address: {wallet_id}
+          <pre>{JSON.stringify(games, null, 2)}</pre>
+        </div>
         <div style={{ textAlign: "center", marginTop: "50px" }}>
       <button onClick={fetchList} style={{ padding: "10px 20px", fontSize: "16px" }}>
         Fetch Games
