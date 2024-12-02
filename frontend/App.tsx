@@ -116,7 +116,25 @@ function App() {
       setAccountHasList(false);
     }
   };
-
+  const addNewList = async () => {
+    if (!account) return [];
+   
+     const transaction:InputTransactionData = {
+        data: {
+          function:`0x43337ce1e45b1cd4812f24c84c4022a151dd9c217b423b97a105869d0427a59f::dreamscribe4::create_game`,
+          functionArguments:["a","aa",2]
+        }
+      }
+    try {
+      // sign and submit transaction to chain
+      const response = await signAndSubmitTransaction(transaction);
+      // wait for transaction
+      await aptos.waitForTransaction({transactionHash:response.hash});
+      setAccountHasList(true);
+    } catch (error: any) {
+      setAccountHasList(false);
+    }
+  };
   const createGame = async () => {
 
     if (!account) {
@@ -155,7 +173,7 @@ function App() {
         Fetch Games
       </button>
       <button
-      button onClick={createGame} style={{ padding: "10px 20px", fontSize: "16px" }}>
+      button onClick={addNewList} style={{ padding: "10px 20px", fontSize: "16px" }}>
         Create Game
       </button>
     </div>
