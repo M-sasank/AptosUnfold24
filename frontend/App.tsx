@@ -56,11 +56,12 @@ function App() {
           }}
         />
       case 'tutorial':
-        return <TutorialSlide/>
+        return <TutorialSlide />
       case 'start':
         return <StartPage 
           onStart={() => setCurrentPage('searchpuzzles')}
           onLeaderboard={() => setCurrentPage('leaderboard')} 
+          onTutorial={() => setCurrentPage('tutorial')} 
         />;
       case 'game':
         return <GameScreen 

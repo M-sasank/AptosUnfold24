@@ -14,18 +14,32 @@ interface LeaderboardEntry {
   timeTaken: number
   completionPercentage: number
 }
+
+interface LeaderboardEntry {
+  id: number
+  name: string
+  image: string
+  timeTaken: number
+  completionPercentage: number
+}
+
 export default function Leaderboard({ onHome, onPlay, games }: { onHome: () => void, onPlay: () => void, games: any[] }) {
   const [currentPage, setCurrentPage] = useState(1)
   const entriesPerPage = 5
   
+  // const leaderboardData: LeaderboardEntry[] = games.flatMap((game, gameIndex) =>
+  //   game.leaderboard.map((entry, entryIndex) => ({
+  //     id: gameIndex * 100 + entryIndex, // Unique ID
+  //     name: `Player ${entryIndex + 1}`, // Placeholder name
+  //     image: entry.user_img || '/placeholder.svg', // Use user_img or fallback
+  //     timeTaken: parseInt(entry.time, 10) || 0, // Convert time to number
+  //     completionPercentage: entry.accuracy || 0, // Use accuracy as percentage
+  //   }))
+  // )
   // Mock data
+console.log(games[0].leaderboard[0].user_id)
   const leaderboardData: LeaderboardEntry[] = [
-    { id: 1, name: "Flashlight", image: "/placeholder.svg", timeTaken: 645, completionPercentage: 54 },
-    { id: 2, name: "Torch", image: "/placeholder.svg", timeTaken: 127, completionPercentage: 11 },
-    { id: 3, name: "Light", image: "/placeholder.svg", timeTaken: 34, completionPercentage: 3 },
-    { id: 4, name: "Star", image: "/placeholder.svg", timeTaken: 31, completionPercentage: 3 },
-    { id: 5, name: "Pencil", image: "/placeholder.svg", timeTaken: 30, completionPercentage: 3 },
-    { id: 6, name: "Bill Cipher", image: "/placeholder.svg", timeTaken: 26, completionPercentage: 2 },
+    { id: 1, image1: "frontend\\public\\logo192.png", image: "frontend\\public\\logo192.png", timeTaken: games[0].leaderboard[0].time, completionPercentage: games[0].leaderboard[0].accuracy }
   ]
   useEffect(
     ()=>{

@@ -17,27 +17,27 @@ interface TutorialSlide {
 const tutorialData: TutorialSlide[] = [
   {
     id: 1,
-    title: "Welcome to Pixelary!",
+    title: "Welcome to DreamScribe!",
     description: "Learn how to play and become a pixel art master!",
-    img: "/placeholder.svg?height=300&width=300"
+    img: "public\\main.gif"
   },
   {
     id: 2,
     title: "Draw Your Masterpiece",
     description: "Use the tools provided to create your pixel art within the time limit.",
-    img: "/placeholder.svg?height=300&width=300"
+    img: "public/main.gif"
   },
   {
     id: 3,
     title: "Guess Other's Art",
     description: "Try to guess what others have drawn to earn points and climb the leaderboard!",
-    img: "/placeholder.svg?height=300&width=300"
+    img: "public/main.gif"
   },
   {
     id: 4,
     title: "Have Fun!",
     description: "Remember, the goal is to have fun and improve your pixel art skills!",
-    img: "/placeholder.svg?height=300&width=300"
+    img: "public/main.gif"
   }
 ]
 

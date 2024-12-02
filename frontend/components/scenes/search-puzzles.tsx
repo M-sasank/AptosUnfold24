@@ -25,7 +25,7 @@ const trendingPuzzles: Puzzle[] = [
     id: 1,
     title: "Space Adventure", 
     description: "Most played puzzle this week",
-    img: "/placeholder.svg?height=200&width=200"
+    img: ""
   },
   {
     id: 2,

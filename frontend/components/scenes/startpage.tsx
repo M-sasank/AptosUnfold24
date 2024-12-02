@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button"
 import { Progress } from "@/components/ui/progress"
 import { Pencil } from 'lucide-react'
 
-export default function PixelaryMenu({ onStart, onLeaderboard }: { onStart: () => void, onLeaderboard: () => void }) {
+export default function PixelaryMenu({ onStart, onLeaderboard, onTutorial }: { onStart: () => void, onLeaderboard: () => void,onTutorial:()=>void }) {
   // Click handlers
   const handleDraw = () => {
     onStart()
@@ -23,6 +23,7 @@ export default function PixelaryMenu({ onStart, onLeaderboard }: { onStart: () =
 
   const handleHowToPlay = () => {
     console.log("How To Play button clicked")
+    onTutorial()
   }
 
   return (
