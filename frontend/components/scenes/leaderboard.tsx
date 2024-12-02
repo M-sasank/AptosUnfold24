@@ -5,7 +5,7 @@
 
 import { Button } from "@/components/ui/button"
 import { Home, Share2, Clock, ChevronLeft, ChevronRight } from 'lucide-react'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 interface LeaderboardEntry {
   id: number
@@ -14,8 +14,7 @@ interface LeaderboardEntry {
   timeTaken: number
   completionPercentage: number
 }
-
-export default function Leaderboard({ onHome, onPlay }: { onHome: () => void, onPlay: () => void }) {
+export default function Leaderboard({ onHome, onPlay, games }: { onHome: () => void, onPlay: () => void, games: any[] }) {
   const [currentPage, setCurrentPage] = useState(1)
   const entriesPerPage = 5
   
@@ -28,7 +27,12 @@ export default function Leaderboard({ onHome, onPlay }: { onHome: () => void, on
     { id: 5, name: "Pencil", image: "/placeholder.svg", timeTaken: 30, completionPercentage: 3 },
     { id: 6, name: "Bill Cipher", image: "/placeholder.svg", timeTaken: 26, completionPercentage: 2 },
   ]
+  useEffect(
+    ()=>{
+  console.log(games);
 
+    },[]
+  )
   const totalPages = Math.ceil(leaderboardData.length / entriesPerPage)
   const startIndex = (currentPage - 1) * entriesPerPage
   const currentEntries = leaderboardData.slice(startIndex, startIndex + entriesPerPage)

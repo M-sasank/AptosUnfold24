@@ -34,6 +34,7 @@ import { CheckboxChangeEvent } from "antd/es/checkbox";
 
 const OKTO_CLIENT_API_KEY = "ca8e29aa-a141-42ea-b28a-b18a08165f05";
 function App() {
+  const wallet_add="0x78a2ff0b6f10b1a9d644cd6e735402d6aadff300e3ae42db6d6ce554383d3d7e"
   const aptos = new Aptos();
   const [games, setGames] = useState([]);
   const [wallet_id,setWalletID] = useState("")
@@ -74,6 +75,7 @@ function App() {
         />;
       case 'leaderboard':
         return <Leaderboard 
+          games={games}
           onHome={() => setCurrentPage('start')}
           onPlay={() => setCurrentPage('game')}
         />;
@@ -162,18 +164,18 @@ function App() {
   };
   
 
-  // useEffect(() => {
-  //   fetchList();
-  // }, [account?.address]);
+  useEffect(() => {
+    fetchList();
+  }, [account?.address]);
 
  return (
   
       <Router>
-        <div>
+        {/* <div>
           Wallet Address: {wallet_id}
           <pre>{JSON.stringify(games, null, 2)}</pre>
-        </div>
-        <div style={{ textAlign: "center", marginTop: "50px" }}>
+        </div> */}
+        {/* <div style={{ textAlign: "center", marginTop: "50px" }}>
       <button onClick={fetchList} style={{ padding: "10px 20px", fontSize: "16px" }}>
         Fetch Games
       </button>
@@ -181,7 +183,7 @@ function App() {
       button onClick={addNewList} style={{ padding: "10px 20px", fontSize: "16px" }}>
         Create Game
       </button>
-    </div>
+    </div> */}
       <AptosWalletAdapterProvider
       autoConnect={true}
       dappConfig={{

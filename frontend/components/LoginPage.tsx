@@ -7,7 +7,7 @@ import { WalletSelector } from "@aptos-labs/wallet-adapter-ant-design";
 import { WalletConnector } from "@aptos-labs/wallet-adapter-mui-design";
 import { PetraWallet } from "petra-plugin-wallet-adapter";
 import { AptosWalletAdapterProvider } from "@aptos-labs/wallet-adapter-react";
-import { useNavigate } from "react-router-dom";
+import { Route, useNavigate } from "react-router-dom";
 import { useOkto } from "okto-sdk-react";
 import { GoogleLogin,GoogleOAuthProvider } from "@react-oauth/google";
 import axios from 'axios';
@@ -130,6 +130,9 @@ function LoginPage() {
             
           )}
       </GoogleOAuthProvider>
+      {/* <Route path="/home" element={<HomeButton />} /> */}
+      <button onClick={() => window.location.href = '/home'}>Home</button>
+
     </div>
   );
 }
