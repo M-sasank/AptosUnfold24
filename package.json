@@ -35,6 +35,8 @@
     "axios": "^1.7.8",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
+    "file-saver": "^2.0.5",
+    "html2canvas": "^1.4.1",
     "lucide-react": "^0.383.0",
     "okto-sdk-react": "^0.1.3",
     "react": "^18.2.0",
