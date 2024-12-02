@@ -99,40 +99,44 @@ function LoginPage() {
   // }, [authToken]);
 
   return (
-    <div style={containerStyle}>
-      <h1>Login</h1>
-      <WalletSelector />
-      {/* <WalletSelector /> */}
-      {/* <WalletConnector/> */}
-      <GoogleOAuthProvider clientId="475743858090-1r6ujngrh35hdk29ehlmvjpu94stim4d.apps.googleusercontent.com">
-      {!authToken ? (
-          <GoogleLogin
-            onSuccess={handleGoogleLogin}
-            onError={(error) => {
-              console.log("Login Failed", error);
-            }}
-            useOneTap
-            promptMomentNotification={(notification) =>
-              console.log("Prompt moment notification:", notification)
-            }
+    <div className="min-h-screen bg-sky-300 bg-[linear-gradient(45deg,rgba(255,255,255,0.1)_25%,transparent_25%,transparent_50%,rgba(255,255,255,0.1)_50%,rgba(255,255,255,0.1)_75%,transparent_75%,transparent)] bg-[length:24px_24px] p-4">
+      <div className=" flex flex-col justify-center items-center max-w-md  mx-auto space-y-6">
+      <img 
+              src={"/main.gif"}
+              alt={"aa"}
+              fill
+              className="object-cover"
             />
-          ) : (
-            <>
-            <div>Authenticated</div>
-            <div style={{ marginTop: '20px', whiteSpace: 'pre-wrap', textAlign: 'center' }}>
-              {walletData ? (
-                <pre>{JSON.stringify(walletData, null, 2)}</pre>
-              ) : (
-                <div>Loading wallet data...</div>
-              )}
-            </div>
-          </>
-            
-          )}
-      </GoogleOAuthProvider>
-      {/* <Route path="/home" element={<HomeButton />} /> */}
-      <button onClick={() => window.location.href = '/home'}>Home</button>
-
+        <h1 className="text-2xl  font-bold pixel-font text-center">Login</h1>
+        <WalletSelector />
+        <p>or</p>
+        <GoogleOAuthProvider clientId="475743858090-1r6ujngrh35hdk29ehlmvjpu94stim4d.apps.googleusercontent.com">
+        {!authToken ? (
+            <GoogleLogin
+              onSuccess={handleGoogleLogin}
+              onError={(error) => {
+                console.log("Login Failed", error);
+              }}
+              useOneTap
+              promptMomentNotification={(notification) =>
+                console.log("Prompt moment notification:", notification)
+              }
+              />
+            ) : (
+              <>
+              <div className="text-center pixel-font">Authenticated</div>
+              <div className=" space-y-2">
+                {walletData ? (
+                  <pre className="pixel-font text-sm text-white/80">{JSON.stringify(walletData, null, 2)}</pre>
+                ) : (
+                  <div className="pixel-font text-sm text-white/80">Loading wallet data...</div>
+                )}
+              </div>
+              </>
+            )}
+        </GoogleOAuthProvider>
+        <button onClick={() => window.location.href = '/home'} className="fixed bottom-6 right-9">Home</button>
+      </div>
     </div>
   );
 }

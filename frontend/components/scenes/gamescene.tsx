@@ -403,7 +403,13 @@ const takePhoto = () => {
       console.error('Secondary view is not defined.');
     }
   }
-
+  const [progress, setProgress] = useState(0);
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      setProgress((prevProgress) => Math.min(50, Math.max(2, prevProgress + Math.random() * 10 - 5)).toFixed(0));
+    }, 500);
+    return () => clearInterval(intervalId);
+  }, []);
   return (
     <div ref={captureRef} className="min-h-screen bg-sky-300 bg-[linear-gradient(45deg,rgba(255,255,255,0.1)_25%,transparent_25%,transparent_50%,rgba(255,255,255,0.1)_50%,rgba(255,255,255,0.1)_75%,transparent_75%,transparent)] bg-[length:24px_24px]">
       {/* Top Bar */}
@@ -440,6 +446,7 @@ const takePhoto = () => {
             <div className="relative border-4 border-black rounded-lg overflow-hidden w-full" style={{aspectRatio: "4/3"}}>
               <div className="w-full h-full bg-white flex items-center justify-center">
                 <div className="w-full h-full object-contain"></div>
+              <img src="/target.jpg" alt="Target Image" className="object-cover" />
               </div>
             </div>
             <span className="text-sm pixel-font mt-2">Target</span>
@@ -447,7 +454,8 @@ const takePhoto = () => {
           
           <div className="relative flex items-center justify-center w-16 h-16">
             <div className="absolute w-full h-full rounded-full border-4 border-black bg-white"></div>
-            <span className="relative z-10 text-xl pixel-font font-bold">33%</span>
+            <span className="relative z-10 text-xl pixel-font font-bold">{`${progress}%`}</span>
+            
           </div>
 
           <div  className="flex flex-col items-center w-[40%]">

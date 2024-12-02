@@ -18,7 +18,7 @@ export default function PixelaryMenu({ onStart, onLeaderboard }: { onStart: () =
   }
 
   const handleLeaderboard = () => {
-    onLeaderboard()
+    console.log("Leaderboard button clicked")
   }
 
   const handleHowToPlay = () => {
