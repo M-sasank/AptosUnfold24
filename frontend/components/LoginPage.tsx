@@ -1,7 +1,12 @@
 // @ts-ignore
 // @ts-nocheck
 
+
 import React, { useState, useEffect } from "react";
+import { WalletSelector } from "@aptos-labs/wallet-adapter-ant-design";
+import { WalletConnector } from "@aptos-labs/wallet-adapter-mui-design";
+import { PetraWallet } from "petra-plugin-wallet-adapter";
+import { AptosWalletAdapterProvider } from "@aptos-labs/wallet-adapter-react";
 import { useNavigate } from "react-router-dom";
 import { useOkto } from "okto-sdk-react";
 import { GoogleLogin,GoogleOAuthProvider } from "@react-oauth/google";
@@ -36,6 +41,21 @@ function LoginPage() {
         console.log("Authentication check: ", authResponse);
         setAuthToken(authResponse.auth_token);
         console.log("auth token received", authResponse&&authResponse.auth_token&&authResponse.auth_token);
+        
+        const options1 = {
+          method: 'POST',
+          url: 'https://sandbox-api.okto.tech/api/v1/wallet',
+          headers: {Authorization: `Bearer ${authResponse&&authResponse.auth_token&&authResponse.auth_token}`}
+        };
+        
+        try {
+          const { data } = await axios.request(options1);
+          console.log(data);
+          console.log("Created a new wallet for user!")
+        } catch (error) {
+          console.error(error);
+        }
+
         const options = {
           method: 'GET',
           url: 'https://sandbox-api.okto.tech/api/v1/wallet',
@@ -81,6 +101,9 @@ function LoginPage() {
   return (
     <div style={containerStyle}>
       <h1>Login</h1>
+      <WalletSelector />
+      {/* <WalletSelector /> */}
+      {/* <WalletConnector/> */}
       <GoogleOAuthProvider clientId="475743858090-1r6ujngrh35hdk29ehlmvjpu94stim4d.apps.googleusercontent.com">
       {!authToken ? (
           <GoogleLogin

@@ -1,0 +1,16 @@
+[package]
+name = "dreamscribe4"
+version = "1.0.0"
+authors = []
+
+[addresses]
+dreamscribe_addr='0x43337ce1e45b1cd4812f24c84c4022a151dd9c217b423b97a105869d0427a59f'
+
+[dev-addresses]
+
+[dependencies.AptosFramework]
+git = "https://github.com/aptos-labs/aptos-framework.git"
+rev = "mainnet"
+subdir = "aptos-framework"
+
+[dev-dependencies]
